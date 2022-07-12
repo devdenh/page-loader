@@ -1,5 +1,4 @@
 install:
-	poetry update
 	poetry install
 
 test:
