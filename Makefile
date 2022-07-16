@@ -3,10 +3,10 @@ install:
 	poetry install
 
 test:
-	poetry run pytest /home/devden/python-project-lvl3/ -W ignore::DeprecationWarning
+	poetry run pytest -W ignore::DeprecationWarning
 
 test-coverage:
-	poetry run pytest --cov=page_loader --cov-report xml
+	poetry run pytest --cov=page_loader --cov-report xml -W ignore::DeprecationWarning
 
 lint:
 	poetry run flake8 page_loader
