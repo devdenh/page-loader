@@ -4,12 +4,12 @@ from page_loader.parser import parse
 from page_loader.DOM import make_dom
 from page_loader.DOM import replace_pic_link
 from urllib.parse import urljoin
-from tests.fixtures.expected import read
 
 
-# def get_extention(url):
-#     parsed = parse(url, 'url')
-#     return os.path.splitext(parsed.path)[-1]
+def read(file_path):
+    with open(file_path, 'r') as f:
+        result = f.read()
+    return result
 
 
 def build_name(url, ending):
@@ -37,6 +37,7 @@ def download(url, output=os.getcwd()):
     target_path = os.path.join(output, target_html_name)
     get = requests.get(url)
     files_dir = build_name(url, '_files')
+    parsed_url = parse(url, 'url')
 
     if not os.path.exists(target_path):
         write(target_path, get.text)
@@ -50,9 +51,12 @@ def download(url, output=os.getcwd()):
             os.mkdir(target_dir)
         src_list = list(map(lambda x: x['src'], pic_list))
         for src in src_list:
-            picture_name = download_pictures(urljoin(url, src), target_dir)
-            new_link = os.path.join(files_dir, picture_name)
-            replace_pic_link(dom, src, new_link)
+            full_pic_name = urljoin(url, src)
+            if parsed_url.scheme in full_pic_name and\
+                    len(os.listdir(target_dir)) < len(pic_list):
+                picture_name = download_pictures(full_pic_name, target_dir)
+                new_link = os.path.join(files_dir, picture_name)
+                replace_pic_link(dom, src, new_link)
         write(target_path, dom.prettify())
     if output:
         return target_path

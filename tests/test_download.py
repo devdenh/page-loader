@@ -4,9 +4,8 @@ import requests
 from page_loader.DOM import make_dom
 import requests_mock
 from tests.fixtures.expected import read_pic
-from page_loader.downloader import build_name
 import pook
-from tests.fixtures.expected import read
+from page_loader.downloader import read
 
 
 @pook.on
@@ -34,9 +33,10 @@ def test_download_pic(tmpdir, image_fixture, html_fixture, mock_fixture):
     files_dir = os.path.join(tmpdir, 'ru-hexlet-io-courses_files')
     pic_path = os.path.join(files_dir,
                             'ru-hexlet-io-assets-professions-nodejs.png')
+    pic_content = read_pic(pic_path)
     assert os.path.isdir(files_dir)
     assert os.path.exists(pic_path)
-    pic_content = read_pic(pic_path)
+    print(pic_path)
     assert type(pic_content) == bytes
 
 
