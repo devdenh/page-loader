@@ -16,7 +16,7 @@ selfcheck:
 
 check: selfcheck test lint
 
-done: check install build pinstall
+done: check install build try
 
 build: check
 	poetry build

@@ -7,6 +7,17 @@ def read(file_path):
     return result
 
 
+def read_pic(file_path):
+    with open(get_fixture_path('picture.jpg'), "rb") as image:
+        pic = image.read()
+    return pic
+
+
 def get_fixture_path(file_name):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(current_dir, file_name)
+
+#
+# with open(get_fixture_path('picture.jpg'), "rb") as image:
+#     f = image.read()
+#     print(type(f))
