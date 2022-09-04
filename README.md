@@ -8,5 +8,10 @@
 step1:
 [![asciicast](https://asciinema.org/a/oUMkk76AbDZAymkAII7jsyf8n.svg)](https://asciinema.org/a/oUMkk76AbDZAymkAII7jsyf8n)
 
+
 step2:
 [![asciicast](https://asciinema.org/a/wKqLMU3tTkiLNSYzPWGjEA0rS.svg)](https://asciinema.org/a/wKqLMU3tTkiLNSYzPWGjEA0rS)
+
+
+step3:
+[![asciicast](https://asciinema.org/a/MynE3ckZJb9e4yFKW6AErJbhU.svg)](https://asciinema.org/a/MynE3ckZJb9e4yFKW6AErJbhU)
