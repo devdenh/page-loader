@@ -5,6 +5,6 @@ def make_dom(html):
     return BeautifulSoup(html, 'html.parser')
 
 
-def replace_pic_link(dom, old, new):
-    image = dom.select(f'img[src="{old}"]')
-    image[0]['src'] = new
+def replace_content_link(bs4_tag, link):
+    attrs = 'src' if bs4_tag.get('src') else 'href'
+    bs4_tag[attrs] = link
