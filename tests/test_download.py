@@ -1,7 +1,7 @@
 from page_loader import download
 import os
 import requests
-from page_loader.DOM import make_dom
+from page_loader.DOM_editors import make_dom
 from tests.fixtures.expected import read_pic
 import pook
 from page_loader.downloader import read
@@ -32,7 +32,6 @@ def test_download_pic(tmpdir, mock_html):
     pic_content = read_pic(pic_path)
     assert os.path.isdir(files_dir)
     assert os.path.exists(pic_path)
-    print(os.listdir(os.path.join(tmpdir, 'ru-hexlet-io-courses_files')))
     assert type(pic_content) == bytes
 
 
