@@ -43,6 +43,8 @@ def download(url, output=os.getcwd()):
         logging.info("No possible resources to download")
     logging.info(f"Page was downloaded as: '{target_path}'")
 
+    return target_path
+
 
 def download_resources(res_list, target_dir, files_dir, url, dom):
     parsed_url = parse(url, 'url')
@@ -56,16 +58,16 @@ def download_resources(res_list, target_dir, files_dir, url, dom):
         resource_link = item.get('src') \
             if item.get('src') else item.get('href')
         if resource_link:
-        #  'https://ru.hexlet.io/courses/assets/application.css'
+            #  'https://ru.hexlet.io/courses/assets/application.css'
             abs_res_link = resource_link \
-                if parsed_url.netloc in resource_link\
+                if parsed_url.netloc in resource_link \
                 else urljoin(url, resource_link)
             if parsed_url.netloc in abs_res_link and \
                     len(os.listdir(target_dir)) < len(res_list):
                 #  "https://ru.hexlet.io/packs/js/runtime.js"
                 #  or 'ru.hexlet.io/assets/application.css'
-                local_src_name = resource_link\
-                    if parsed_url.netloc in resource_link\
+                local_src_name = resource_link \
+                    if parsed_url.netloc in resource_link \
                     else parsed_url.netloc + resource_link
                 #  'ru-hexlet-io-packs-js-runtime.js'
                 #  or 'ru-hexlet-io-assets-application.css'
