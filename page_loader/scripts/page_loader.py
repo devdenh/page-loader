@@ -11,6 +11,7 @@ def main():
     logging.root.addHandler(logging.FileHandler("logs.log"))
     try:
         download(args.url, args.output)
+        return 0
     except Exception as ex:
         if isinstance(ex, FileExistsError):
             logging.critical(f"{ex.args[0]}")
