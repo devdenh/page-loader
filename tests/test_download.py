@@ -10,7 +10,7 @@ from page_loader.downloader import read
 import pytest
 
 
-URL = 'https://ru.hexlet.io/courses'
+URL = "https://site.com/blog/about"
 
 
 @pook.on
@@ -60,15 +60,17 @@ def test_server_error(tmpdir):
 
 
 def test_create_file(tmpdir, mock_html):
-    file = download('https://ru.hexlet.io/courses', tmpdir)
+    file = download('https://site.com/blog/about', tmpdir)
     assert os.path.exists(file)
 
 
 def test_download_pic(tmpdir, mock_html):
     download(URL, tmpdir)
-    files_dir = os.path.join(tmpdir, 'ru-hexlet-io-courses_files')
-    pic_path = os.path.join(files_dir,
-                            'ru-hexlet-io-assets-professions-nodejs.png')
+    files_dir = os.path.join(tmpdir, "site-com-blog-about_files")
+    pic_path = os.path.join(
+        files_dir,
+        "site-com-photos-me.jpg"
+    )
     pic_content = read_pic(pic_path)
     assert os.path.isdir(files_dir)
     assert os.path.exists(pic_path)

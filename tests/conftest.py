@@ -5,7 +5,7 @@ import requests_mock
 
 @pytest.fixture(scope='module')
 def fake_html():
-    with open(get_fixture_path('hexlet.html'), 'r') as f:
+    with open(get_fixture_path('final.html'), 'r') as f:
         result = f.read()
     return result
 
@@ -19,7 +19,7 @@ def fake_jpg():
 
 @pytest.fixture(scope='module')
 def fake_downloaded_html():
-    with open(get_fixture_path('downloaded_hexlet.html'), 'r') as f:
+    with open(get_fixture_path('final_expected.html'), 'r') as f:
         result = f.read()
     return result
 
@@ -27,8 +27,12 @@ def fake_downloaded_html():
 @pytest.fixture(scope='module')
 def mock_html(fake_html, fake_jpg):
     with requests_mock.Mocker() as m:
-        m.get('https://ru.hexlet.io/courses', text=fake_html)
+        m.get('https://site.com/blog/about', text=fake_html)
         m.get('/assets/professions/nodejs.png', content=fake_jpg)
         m.get('/assets/application.css')
         m.get('https://ru.hexlet.io/packs/js/runtime.js')
+        m.get('https://site.com/blog/about/assets/styles.css')
+        m.get('https://getbootstrap.com/docs/4.5')
+        m.get('https://site.com/photos/me.jpg', content=fake_jpg)
+        m.get('https://site.com/assets/scripts.js')
         yield m

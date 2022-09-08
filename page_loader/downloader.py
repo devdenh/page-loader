@@ -1,15 +1,15 @@
-import os
-import requests
-from page_loader.parser import parse
+from page_loader.parser import parse, is_subdomain
 from page_loader.DOM_editors import make_dom, replace_content_link
 from urllib.parse import urljoin
 from page_loader.fs_handlers import write, write_content, read, \
     check_write_permission
 from page_loader.name_editors import build_dashed_name, get_extension
 from page_loader.request_handler import handle_requests
+from progress.bar import IncrementalBar
+import requests
 import logging
 import time
-from progress.bar import IncrementalBar
+import os
 
 
 def download(url, output=os.getcwd()):
@@ -53,7 +53,7 @@ def download(url, output=os.getcwd()):
 
 
 def download_resources(res_list, target_dir, files_dir, url, dom):
-    parsed_url = parse(url, 'url')
+    subdomain, parsed_url = parse(url, 'url')
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
 
@@ -72,7 +72,7 @@ def download_resources(res_list, target_dir, files_dir, url, dom):
             abs_res_link = resource_link \
                 if parsed_url.netloc in resource_link \
                 else urljoin(url, resource_link)
-            if parsed_url.netloc in abs_res_link and \
+            if is_subdomain(url, abs_res_link) and \
                     len(os.listdir(target_dir)) < len(res_list):
                 #  "https://ru.hexlet.io/packs/js/runtime.js"
                 #  or 'ru.hexlet.io/assets/application.css'
