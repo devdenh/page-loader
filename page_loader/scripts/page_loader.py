@@ -6,12 +6,12 @@ from page_loader.request_handler import RedirectError, ClientError, ServerError
 
 
 def main():
+    exit_code = 0
     args = parse_args()
     logging.basicConfig(level=logging.INFO)
     logging.root.addHandler(logging.FileHandler("logs.log"))
     try:
         download(args.url, args.output)
-        exit_code = 0
     except Exception as ex:
         exit_code = 1
         if isinstance(ex, FileExistsError):
@@ -27,7 +27,9 @@ def main():
         if isinstance(ex, ServerError):
             logging.critical(f"{ServerError.args[0]}"
                              f" url: {ServerError.args[1]}")
-    return exit_code
+        raise
+    finally:
+        return exit_code
 
 
 if __name__ == '__main__':
