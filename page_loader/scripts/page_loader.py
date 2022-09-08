@@ -14,6 +14,9 @@ def main():
         download(args.url, args.output)
     except Exception as ex:
         exit_code = 1
+        if isinstance(ex, ValueError):
+            logging.critical(f"{ex.args[0]}")
+            return exit_code
         if isinstance(ex, FileExistsError):
             logging.critical(f"{ex.args[0]}")
         if isinstance(ex, PermissionError):

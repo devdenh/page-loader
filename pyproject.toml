@@ -20,6 +20,7 @@ beautifulsoup4 = "^4.11.1"
 requests-mock = "^1.9.3"
 progress = "^1.6"
 tldextract = "^3.3.1"
+validators = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,3 +1,4 @@
+import validators
 
 
 class RedirectError(Exception):
@@ -19,6 +20,8 @@ class ServerError(Exception):
 
 
 def handle_requests(status_code, url):
+    if not validators.url(url):
+        raise ValueError(f"Invalid url: {url}")
     if 300 <= status_code < 400:
         raise RedirectError(
             "Need further action to complete the request",
