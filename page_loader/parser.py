@@ -3,23 +3,17 @@ import tldextract
 
 
 def parse(data, format_name):
-    subdomain = tldextract.extract(data).subdomain
     if format_name == 'url':
-        return subdomain, urlparse(data)
+        return urlparse(data)
     raise ValueError(f'Unknown format: {format_name}')
 
 
 def is_subdomain(first_url, second_url):
-    if get_subdomain(first_url) == get_subdomain(second_url):
-        if get_domain(first_url) == get_domain(second_url):
+    tld_first = tldextract.TLDExtract(suffix_list_urls=())
+    tld_second = tldextract.TLDExtract(suffix_list_urls=())
+
+    if tld_first(first_url).subdomain == tld_second(second_url).subdomain:
+        if tld_first(first_url).domain == tld_second(second_url).domain:
             return True
     else:
         return False
-
-
-def get_subdomain(url):
-    return tldextract.extract(url).subdomain
-
-
-def get_domain(url):
-    return tldextract.extract(url).domain

@@ -35,4 +35,5 @@ def mock_html(fake_html, fake_jpg):
         m.get('https://getbootstrap.com/docs/4.5')
         m.get('https://site.com/photos/me.jpg', content=fake_jpg)
         m.get('https://site.com/assets/scripts.js')
+        m.get('https://publicsuffix.org/list/public_suffix_list.dat')
         yield m

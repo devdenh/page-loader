@@ -53,7 +53,7 @@ def download(url, output=os.getcwd()):
 
 
 def download_resources(res_list, target_dir, files_dir, url, dom):
-    subdomain, parsed_url = parse(url, 'url')
+    parsed_url = parse(url, 'url')
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
 
