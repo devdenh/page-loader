@@ -18,3 +18,8 @@ def write_content(link, target_name, files_dir):
     file_name = os.path.join(files_dir, target_name)
     with open(file_name, 'wb') as handler:
         handler.write(content_data)
+
+
+def check_write_permission(path):
+    if not os.access(path, os.W_OK):
+        raise PermissionError(f"Need permission to write in: {path}")

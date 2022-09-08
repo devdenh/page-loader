@@ -84,8 +84,10 @@ def test_change_links(tmpdir, fake_jpg, mock_html, fake_downloaded_html):
 
 def test_permission_exception(tmpdir, mock_html):
     os.chmod(tmpdir, stat.S_IRUSR)
-    with pytest.raises(PermissionError):
+    ex_msg = "Need permission to write in:"
+    with pytest.raises(PermissionError) as ex:
         download(URL, tmpdir)
+    assert ex_msg in str(ex.value)
 
 
 def test_nonexistent_dir(tmpdir, mock_html):

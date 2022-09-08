@@ -3,7 +3,8 @@ import requests
 from page_loader.parser import parse
 from page_loader.DOM_editors import make_dom, replace_content_link
 from urllib.parse import urljoin
-from page_loader.fs_handlers import write, write_content, read
+from page_loader.fs_handlers import write, write_content, read, \
+    check_write_permission
 from page_loader.name_editors import build_dashed_name, get_extension
 from page_loader.request_handler import handle_requests
 import logging
@@ -26,6 +27,7 @@ def download(url, output=os.getcwd()):
     get = session.get(url)
 
     handle_requests(get.status_code, url)
+    check_write_permission(output)
 
     files_dir = build_dashed_name(url, '_files')
 
