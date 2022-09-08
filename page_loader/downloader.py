@@ -5,14 +5,16 @@ from page_loader.DOM_editors import make_dom, replace_content_link
 from urllib.parse import urljoin
 from page_loader.fs_handlers import write, write_content, read
 from page_loader.name_editors import build_dashed_name, get_extension
+from page_loader.request_handler import handle_requests
 import logging
+import time
+from progress.bar import IncrementalBar
 
 
 def download(url, output=os.getcwd()):
     #  we need existed dirs
     if not os.path.exists(output) or not os.path.isdir(output):
-        logging.critical("Directory not exist")
-        raise NotADirectoryError("Directory not exist")
+        raise FileExistsError("Directory not exists")
 
     logging.info(f"requested url: {url}")
     logging.info(f"output path: {output}")
@@ -21,8 +23,10 @@ def download(url, output=os.getcwd()):
     logging.info(f"write html file: {target_path}")
 
     session = requests.Session()
-    session.get(url)
     get = session.get(url)
+
+    handle_requests(get.status_code, url)
+
     files_dir = build_dashed_name(url, '_files')
 
     #  check if html already exists
@@ -51,7 +55,11 @@ def download_resources(res_list, target_dir, files_dir, url, dom):
     if not os.path.exists(target_dir):
         os.mkdir(target_dir)
 
+    bar = IncrementalBar("Downloading:", max=len(res_list))
+
     for item in res_list:
+        bar.next()
+        time.sleep(0.1)
         #  "/assets/application.css"
         #  or "https://ru.hexlet.io/packs/js/runtime.js"
 
@@ -80,4 +88,5 @@ def download_resources(res_list, target_dir, files_dir, url, dom):
                                                         dashed_name))
         else:
             logging.info("No src or href can't download resource")
+    bar.finish()
     return dom
