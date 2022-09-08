@@ -37,8 +37,8 @@ def main():
             return exit_code
         raise
     finally:
-        return exit_code
+        sys.exit(exit_code)
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    main()
