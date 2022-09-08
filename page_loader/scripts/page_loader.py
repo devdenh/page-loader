@@ -15,27 +15,20 @@ def main():
     except Exception as ex:
         exit_code = 1
         if isinstance(ex, ValueError):
-            logging.critical(f"{ex.args[0]}")
-            return exit_code
+            logging.exception(f"{ex.args[0]}")
         if isinstance(ex, FileExistsError):
             logging.critical(f"{ex.args[0]}")
-            return exit_code
         if isinstance(ex, PermissionError):
             logging.critical(f"{ex.args[0]}")
-            return exit_code
         if isinstance(ex, RedirectError):
             logging.warning(f"{RedirectError.args[0]}"
                             f" url: {RedirectError.args[1]}")
-            return exit_code
         if isinstance(ex, ClientError):
             logging.critical(f"{ClientError.args[0]}"
                              f" url: {ClientError.args[1]}")
-            return exit_code
         if isinstance(ex, ServerError):
             logging.critical(f"{ServerError.args[0]}"
                              f" url: {ServerError.args[1]}")
-            return exit_code
-        raise
     finally:
         sys.exit(exit_code)
 
