@@ -23,3 +23,7 @@ step4:
 
 step5:
 [![asciicast](https://asciinema.org/a/bQ8kLLwgYuFP3ZD4jWu5M7ddx.svg)](https://asciinema.org/a/bQ8kLLwgYuFP3ZD4jWu5M7ddx)
+
+
+step6:
+[![asciicast](https://asciinema.org/a/USKS3XZuCvoDpFMbFAiJwWZti.svg)](https://asciinema.org/a/USKS3XZuCvoDpFMbFAiJwWZti)
