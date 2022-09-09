@@ -5,7 +5,6 @@ from page_loader.fs_handlers import write, write_content, read, \
     check_write_permission
 from page_loader.name_editors import build_dashed_name, get_extension
 from page_loader.request_handler import handle_requests, is_valid_url
-from page_loader.my_logging import console_handler
 from progress.bar import IncrementalBar
 import requests
 import logging
