@@ -5,11 +5,16 @@ from page_loader.fs_handlers import write, write_content, read, \
     check_write_permission
 from page_loader.name_editors import build_dashed_name, get_extension
 from page_loader.request_handler import handle_requests, is_valid_url
+from page_loader.my_logging import console_handler
 from progress.bar import IncrementalBar
 import requests
 import logging
 import time
 import os
+
+
+logger = logging.getLogger(__name__)
+logger.addHandler(console_handler)
 
 
 def download(url, output=os.getcwd()):
@@ -23,8 +28,8 @@ def download(url, output=os.getcwd()):
     handle_requests(get.status_code, url)
     check_write_permission(output)
 
-    logging.info(f"requested url: {url}")
-    logging.info(f"output path: {output}")
+    logger.info(f"requested url: {url}")
+    logger.info(f"output path: {output}")
     target_html_name = build_dashed_name(url, '.html')
     target_path = os.path.join(output, target_html_name)
     logging.info(f"write html file: {target_path}")
@@ -33,7 +38,7 @@ def download(url, output=os.getcwd()):
 
     #  check if html already exists
     if not os.path.exists(target_path):
-        logging.info("Creating html webpage")
+        logger.info("Creating html webpage")
         write(target_path, get.text)
 
     dom = make_dom(read(target_path))
@@ -46,8 +51,8 @@ def download(url, output=os.getcwd()):
                                      files_dir, url, dom)
         write(target_path, new_dom.prettify())
     else:
-        logging.info("No possible resources to download")
-    logging.info(f"Page was downloaded as: '{target_path}'")
+        logger.info("No possible resources to download")
+    logger.info(f"Page was downloaded as: '{target_path}'")
 
     return target_path
 
@@ -89,6 +94,6 @@ def download_resources(res_list, target_dir, files_dir, url, dom):
                 replace_content_link(item, os.path.join(files_dir,
                                                         dashed_name))
         else:
-            logging.info("No src or href can't download resource")
+            logger.info("No src or href can't download resource")
     bar.finish()
     return dom

@@ -15,5 +15,4 @@ def is_subdomain(first_url, second_url):
     if tld_first(first_url).subdomain == tld_second(second_url).subdomain:
         if tld_first(first_url).domain == tld_second(second_url).domain:
             return True
-    else:
-        return False
+    return False
