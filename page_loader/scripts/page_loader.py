@@ -15,7 +15,7 @@ def main():
     exit_code = 0
     args = parse_args()
     try:
-        download(args.url, args.output)
+        print(download(args.url, args.output))
     except Exception as ex:
         exit_code = 1
         if isinstance(ex, ValueError):
