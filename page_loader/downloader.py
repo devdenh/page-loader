@@ -13,8 +13,7 @@ import time
 import os
 
 
-logger = logging.getLogger(__name__)
-logger.addHandler(console_handler)
+logger = logging.getLogger("root")
 
 
 def download(url, output=os.getcwd()):

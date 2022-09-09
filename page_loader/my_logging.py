@@ -6,7 +6,8 @@ from pathlib import Path
 
 APP_LOG = Path(__file__).parent.parent / 'logs.log'
 
-formatter = Formatter("[%(asctime)s:%(levelname)s] [logger:%(name)s] %(message)s")
+formatter = Formatter("[%(asctime)s:%(levelname)s] "
+                      "[logger:%(name)s] %(message)s")
 
 file_handler = logging.FileHandler(filename=APP_LOG, mode='w')
 file_handler.setLevel(logging.WARNING)

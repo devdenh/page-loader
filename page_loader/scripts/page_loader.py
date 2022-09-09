@@ -1,17 +1,17 @@
 import logging
 import sys
-from page_loader.my_logging import file_handler, console_handler
+from page_loader.my_logging import file_handler
 from page_loader.cli import parse_args
 from page_loader import download
-from page_loader.request_handler import RedirectError, ClientError, ServerError
-
-
-logger = logging.getLogger(__name__)
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+from page_loader.request_handler import (
+    RedirectError, ClientError, ServerError
+)
 
 
 def main():
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+    logger.addHandler(file_handler)
     exit_code = 0
     args = parse_args()
     try:
