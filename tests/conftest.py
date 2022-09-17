@@ -1,5 +1,5 @@
 import pytest
-from tests.fixtures.expected import get_fixture_path
+from tests.test_download import get_fixture_path
 import requests_mock
 
 

@@ -8,8 +8,8 @@ def read(file_path):
     return result
 
 
-def write(fp, data):
-    with open(fp, 'w') as f:
+def write(fp, data, mode):
+    with open(fp, mode) as f:
         f.write(data)
 
 

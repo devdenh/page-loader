@@ -1,16 +1,31 @@
 import stat
-
 from page_loader import download
 import os
 import requests
-from page_loader.DOM_editors import make_dom
-from tests.fixtures.expected import read_pic
+from bs4 import BeautifulSoup
 import pook
-from page_loader.downloader import read
 import pytest
 
 
 URL = "https://site.com/blog/about"
+FIXTURES_FOLDER = 'fixtures'
+
+
+def read(file_path):
+    with open(file_path, 'r') as f:
+        result = f.read()
+    return result
+
+
+def read_pic(file_path):
+    with open(get_fixture_path(file_path), "rb") as image:
+        pic = image.read()
+    return pic
+
+
+def get_fixture_path(file_name):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(current_dir, FIXTURES_FOLDER, file_name)
 
 
 @pook.on
@@ -79,8 +94,8 @@ def test_download_pic(tmpdir, mock_html):
 
 def test_change_links(tmpdir, fake_jpg, mock_html, fake_downloaded_html):
     downloaded = download(URL, tmpdir)
-    dom = make_dom(read(downloaded))
-    new_dom = make_dom(fake_downloaded_html)
+    dom = BeautifulSoup(read(downloaded), features="html.parser")
+    new_dom = BeautifulSoup(fake_downloaded_html, features="html.parser")
     assert dom.prettify() == new_dom.prettify()
 
 
@@ -92,6 +107,6 @@ def test_permission_exception(tmpdir, mock_html):
     assert ex_msg in str(ex.value)
 
 
-def test_nonexistent_dir(tmpdir, mock_html):
+def test_nonexistent_dir(mock_html):
     with pytest.raises(FileExistsError):
         download(URL, "Fake_dir")
