@@ -18,8 +18,7 @@ def download(url, output=os.getcwd()):
 
     #  we need existed dirs
     if not os.path.exists(output) or not os.path.isdir(output):
-        os.mkdir(output)
-        logger.info(f"creating output directory: {output}")
+        raise FileExistsError("Directory not exists")
 
     if not validators.url(url):
         raise ValueError(f"Invalid url: {url}")
