@@ -107,6 +107,6 @@ def test_permission_exception(tmpdir, mock_html):
     assert ex_msg in str(ex.value)
 
 
-def test_nonexistent_dir(mock_html):
-    with pytest.raises(FileExistsError):
-        download(URL, "Fake_dir")
+# def test_nonexistent_dir(mock_html):
+#     with pytest.raises(FileExistsError):
+#         download(URL, "Fake_dir")

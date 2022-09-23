@@ -1,17 +1,23 @@
-import logging
-import sys
-from page_loader.my_logging import file_handler
-from page_loader.cli import parse_args
-from page_loader import download
-from page_loader.request_handler import (
+from page_loader.response import (
     RedirectError, ClientError, ServerError
 )
+from page_loader.logging import init_logging
+from page_loader.cli import parse_args
+from page_loader import download
+from pathlib import Path
+
+import logging
+import sys
+
+APP_LOG = Path(__file__).parent.parent.parent / 'logs.log'
 
 
 def main():
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
+    _, file_handler, _ = init_logging(APP_LOG)
     logger.addHandler(file_handler)
+
     exit_code = 0
     args = parse_args()
     try:
