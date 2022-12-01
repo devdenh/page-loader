@@ -5,15 +5,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - name: Set up Python
         uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.10'
+          
       - name: Install dependencies
         run: |
           pip install poetry
           make install
+          
       - name: Run linter and pytest
         run: |
           make check
+          
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
